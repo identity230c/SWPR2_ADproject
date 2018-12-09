@@ -17,16 +17,8 @@ class Logic:
         newCard = self.deck.chooseCard()
         self.playerCard.append(newCard)
 
-        self.playerNum
-
         # 계산
-        for i in self.playerCard:
-            if i[-1] in ['0', 'J', 'Q', 'K']:
-                self.playerNum += 10
-            elif i[-1].isdigit():
-                self.playerNum += int(i[-1])
-            elif i[-1] == 'A':
-                self.playerNum += 1
+        self.playerNum = self.cardSum(self.playerCard)
 
         # 죽으면 die
         if self.playerNum > 21:
@@ -36,6 +28,17 @@ class Logic:
 
         # 리턴
         return newCard
+
+    def cardSum(self, cardList):
+        sum = 0
+        for i in cardList:
+            if i[-1] in ['0', 'J', 'Q', 'K']:
+                sum += 10
+            elif i[-1].isdigit():
+                sum += int(i[-1])
+            elif i[-1] == 'A':
+                sum += 1
+        return sum
 
     def die(self):
         # 판돈 만큼 플레이어 돈 빼기
@@ -48,18 +51,14 @@ class Logic:
     def endGame(self):
         # 딜러의 카드 뽑기 여부를 결정
 
+        self.dealerNum = self.cardSum(self.dealerCard)
+
         # while 딜러 카드가 16 이하
-        while(self.dealerNum <= 16):
+        if self.dealerNum <= 16:
             # 딜러 카드 뽑기
-            self.dealerCard.append(self.deck.chooseCard())
-            self.dealerNum = 0
-            for i in self.dealerCard:
-                if i[-1] in ['0', 'J', 'Q', 'K']:
-                    self.dealerNum += 10
-                elif i[-1].isdigit():
-                    self.dealerNum += int(i[-1])
-                elif i[-1] == 'A':
-                    self.dealerNum += 1
+            newCard = self.deck.chooseCard()
+            self.dealerCard.append(newCard)
+            self.dealerNum += self.cardSum([newCard])
 
         # 딜러와 플레이어 카드 비교
             # 플레이어가 블랙잭이면 플레이어 2배
@@ -96,24 +95,9 @@ class Logic:
         for i in range(2):
             self.dealerCard.append(self.deck.chooseCard())
             self.playerCard.append(self.deck.chooseCard())
-            
-        for card in [self.dealerCard, self.playerCard]:
-            for i in card:
-                if i[-1] in ['0', 'J', 'Q', 'K']:
-                    if card == self.dealerCard:
-                        self.dealerNum += 10
-                    else:
-                        self.playerNum += 10
-                elif i[-1].isdigit():
-                    if card == self.dealerCard:
-                        self.dealerNum += int(i[-1])
-                    else:
-                        self.playerNum += int(i[-1])
-                elif i[-1] == 'A':
-                    if card == self.dealerCard:
-                        self.dealerNum += 1
-                    else:
-                        self.playerNum += 1
+
+        self.playerNum += self.cardSum(self.playerCard)
+        self.dealerNum += self.cardSum(self.dealerCard)
 
         # 딜러의 카드 2개 / 플레이어 카드 2개 리턴(순서쌍이나 리스트)
         dealerPLayerCards = ([self.dealerCard, self.playerCard])
