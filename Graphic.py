@@ -89,7 +89,7 @@ class Graphic(QWidget):
 
         # setPool호출 -> 건 돈 전달
         self.game.setPool(self.poolSlider.value())
-        
+
         # draw호출
         ret = self.game.drawCard()
 
@@ -99,7 +99,9 @@ class Graphic(QWidget):
             self.buttonSwith(False)
 
             self.playerLayout.addWidget(ImageLabel(domain(ret[:-1])))
-            self.statusBox.setText("21이 넘어갔습니다.")
+            self.statusBox.setText("21이 넘어갔습니다. \
+            \n플레이어 : {}\n딜러 : {}" \
+            .format(self.game.playerNum, self.game.dealerNum))
 
             # 게임이 종료되었는지 확인
             if self.game.remainMoney():
@@ -108,7 +110,9 @@ class Graphic(QWidget):
         # 그렇지 않으면 카드를 화면에 추가
             self.playerLayout.addWidget(ImageLabel(domain(ret)))
             self.poolSlider.setRange(0, self.game.getMoney())
-            self.statusBox.setText(self.game.getPlayerStatus())
+            self.statusBox.setText(self.game.getPlayerStatus() \
+            + "\n플레이어 : {}\n딜러 : {}" \
+            .format(self.game.playerNum, self.game.dealerNum))
 
     def dieEvent(self):
         # die버튼 눌리면 연결
