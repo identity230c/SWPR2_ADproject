@@ -111,4 +111,4 @@ class Logic:
         return self.playerMoney - self.pool
 
     def remainMoney(self):
-        return not self.playerMoney > 0
+        return self.playerMoney <= 0
