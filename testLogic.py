@@ -26,8 +26,10 @@ class testLogic(unittest.TestCase):
         self.assertEqual(self.t1.playerMoney, 50)
 
     def testSetPool(self):
-        self.t1.setPool(100)
-        self.assertEqual(self.t1.pool, 100)
+        self.t1.setPool(10)
+        self.assertEqual(self.t1.pool, 10)
+        self.t1.setPool(20)
+        self.assertEqual(self.t1.pool, 30)
 
     def testEndGame(self):
         self.t1.dealerCard = ['club7', 'heart10']
