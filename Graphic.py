@@ -54,7 +54,7 @@ class Graphic(QWidget):
         # 상황판 배치
         self.statusBox = QTextEdit()
         self.statusBox.setReadOnly(True)
-        self.statusBox.setFixedSize(1200,100)
+        self.statusBox.setFixedSize(1500,100)
         mainLayout.addWidget(self.statusBox, 4,0, 1,2)
 
         # 슬라이더 LCD 배치
@@ -156,6 +156,10 @@ class Graphic(QWidget):
         self.statusBox.append(self.game.getPlayerStatus())
 
         self.buttonSwith(False)
+
+        # 돈을 다 잃으면 정지
+        if self.game.remainMoney():
+            self.gameOver()
 
     def hitEvent(self):
         # hit 버튼 눌리면 연결

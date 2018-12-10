@@ -51,7 +51,7 @@ class Logic:
         self.dealerNum = self.cardSum(self.dealerCard)
 
         # while 딜러 카드가 16 이하
-        if self.dealerNum <= 16:
+        while self.dealerNum <= 16:
             # 딜러 카드 뽑기
             newCard = self.deck.chooseCard()
             self.dealerCard.append(newCard)
