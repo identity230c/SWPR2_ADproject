@@ -38,10 +38,12 @@ class Graphic(QWidget):
         dealerBar = QLabel()
         dealerBar.setText("Dealer Bar")
         self.dealerLayout = QHBoxLayout()
+        self.dealerLayout.addStretch(1)
 
         playerBar = QLabel()
         playerBar.setText("Player Bar")
         self.playerLayout = QHBoxLayout()
+        self.playerLayout.addStretch(1)
 
         # 메인레이아웃에 배치
         mainLayout.addWidget(dealerBar , 0,0, 1,2)
@@ -52,6 +54,7 @@ class Graphic(QWidget):
         # 상황판 배치
         self.statusBox = QTextEdit()
         self.statusBox.setReadOnly(True)
+        self.statusBox.setFixedSize(1200,100)
         mainLayout.addWidget(self.statusBox, 4,0, 1,2)
 
         # 슬라이더 LCD 배치
@@ -158,10 +161,15 @@ class Graphic(QWidget):
         # hit 버튼 눌리면 연결
         # 카드 패 모두 지우기
         for i in reversed(range(self.dealerLayout.count())):
-            self.dealerLayout.itemAt(i).widget().deleteLater()
+            try:
+                self.dealerLayout.itemAt(i).widget().deleteLater()
+            except:
+                pass
         for i in reversed(range(self.playerLayout.count())):
-            self.playerLayout.itemAt(i).widget().deleteLater()
-
+            try:
+                self.playerLayout.itemAt(i).widget().deleteLater()
+            except:
+                pass
         # hit 메서드 호출
         cards = self.game.hit()
 
