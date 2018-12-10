@@ -45,9 +45,6 @@ class Logic:
         self.playerMoney -= self.pool
         self.pool = 0
 
-    def setPool(self, pool):
-        self.pool = pool
-
     def endGame(self):
         # 딜러의 카드 뽑기 여부를 결정
 
